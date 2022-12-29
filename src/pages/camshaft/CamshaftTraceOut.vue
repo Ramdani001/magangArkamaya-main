@@ -7,7 +7,7 @@
                 <div id="summaryProduksi" class="sm:w-11/12 md:w-1/2 self-center lg:w-[40%] bg-white md:justify-center rounded-md h-auto">
                 <div id="headerSummary" class="bg-gray-400 p-2 rounded-t-md text-white text-center font-semibold text-xl">
                     <h1>SUMMARY PRODUKSI</h1>
-                </div>
+                </div> 
                 <div class="p-3">
                     <table class="w-full">
                         <thead >
@@ -54,8 +54,11 @@
             </div>
  
             </div>
-            <div id="table" class="w-11/12 md:w-full self-start">
+            <div v-if="DataWork.list != null" id="table" class="w-11/12 md:w-full self-start">
                 <tableData :DataWork="DataWork.list"/>
+            </div>
+            <div v-else id="table" class="w-11/12 md:w-full self-start">
+                <tableData/>
             </div>
         </div>
     </main>
@@ -85,47 +88,59 @@ onMounted(() => {
 
 
 const TypeASSYIN = computed(() => {
-    let TypeDestIN = DataWork.list.filter(function (index) {
-        if(index.Dest === 'ASSY'){
-            return index.TypeListData === 'IN'
-        }
-    })
-    return counstDestAssyIN.value = TypeDestIN.length;
+    if(DataWork.list != null){
+        let TypeDestIN = DataWork.list.filter(function (index) {
+            if(index.Dest === 'ASSY'){
+                return index.TypeListData === 'IN'
+            }
+        })
+        return counstDestAssyIN.value = TypeDestIN.length;
+    }
 })
 
 const TypeASSYEX = computed(() => {
-    let TypeDestEX = DataWork.list.filter(function (index) {
-        if(index.Dest === 'ASSY'){
-            return index.TypeListData === 'EX'
-        }
-    })
-    return counstDestAssyEX.value = TypeDestEX.length;
+    if(DataWork.list != null) {
+        let TypeDestEX = DataWork.list.filter(function (index) {
+            if(index.Dest === 'ASSY'){
+                return index.TypeListData === 'EX'
+            }
+        })
+        return counstDestAssyEX.value = TypeDestEX.length;
+    }
 })
 
 const TypeStockIN = computed(() => {
-    let TypeDestIN = DataWork.list.filter(function (index) {
+    if(DataWork.list != null){
+        let TypeDestIN = DataWork.list.filter(function (index) {
         if(index.Dest === 'STOCK'){
             return index.TypeListData === 'IN'
         }
     })
     return counstDestStockIN.value = TypeDestIN.length;
+    }
 })
 
 const TypeStockEX = computed(() => {
-    let TypeDestEX = DataWork.list.filter(function (index) {
+    if(DataWork.list != null){
+        let TypeDestEX = DataWork.list.filter(function (index) {
         if(index.Dest === 'STOCK'){
             return index.TypeListData === 'EX'
         }
     })
     return counstDestStockEX.value = TypeDestEX.length;
+    }
 })
 
 const CountNumber = computed(() => {
-  return DataWork.list.length;
+  if(DataWork.list != null){
+    return DataWork.list.length;
+  }
 })
 
 const Total = computed(() => { 
-  return DataWork.list.length;
+  if(DataWork.list != null){
+    return DataWork.list.length;
+  }
 })
 
 </script>

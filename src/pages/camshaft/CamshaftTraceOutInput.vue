@@ -254,8 +254,11 @@
               <button @click="deleteData(0)">HPus</button>
           </div>
           <!-- End Sementara -->
-          <div class="w-full">
+          <div v-if="DataWork.list != null" class="w-full">
               <tableData :DataWork="DataWork.list"/>
+          </div>
+          <div v-else class="w-full">
+              <tableData/>
           </div>
 
   </section>
@@ -336,42 +339,50 @@ const onInputChange = (input) => {
 // Ngambil Data Dari LocalStorage
 
     onMounted(() => {
+       if(DataWork.list != null){
         DataWork.list = JSON.parse(localStorage.getItem("DataWork.list"));
+       }
     })
 
 // Ngambil Data Dari LocalStorage
 
 // Seleksi Data Dest ASSY = IN
 const TypeASSYIN = computed(() => {
-    let TypeDestIN = DataWork.list.filter(function (index) {
+    if(DataWork.list != null){
+        let TypeDestIN = DataWork.list.filter(function (index) {
         if(index.Dest === 'ASSY'){
             return index.TypeListData === 'IN'
         }
     })
     return counstDestAssyIN.value = TypeDestIN.length;
+    }
 
 })
 
 // Seleksi Data Dest ASSY = EX
 const TypeASSYEX = computed(() => {
-    let TypeDestEX = DataWork.list.filter(function (index) {
+    if(DataWork.list != null){
+        let TypeDestEX = DataWork.list.filter(function (index) {
         if(index.Dest === 'ASSY'){
             return index.TypeListData === 'EX'
         }
     })
     return counstDestAssyEX.value = TypeDestEX.length;
+    }
 
 })
 
 // Seleksi Data Dest STOCK = IN
 const TypeStockIN = computed(() => {
-    let TypeDestIN = DataWork.list.filter(function (index) {
+    if(DataWork.list != null){
+        let TypeDestIN = DataWork.list.filter(function (index) {
         if(index.Dest === 'STOCK'){
             return index.TypeListData === 'IN'
         }
     })
     return counstDestStockIN.value = TypeDestIN.length;
 
+    }
 })
 
 const Clear = () => {
@@ -380,29 +391,37 @@ const Clear = () => {
 
 // Seleksi Data Dest ASSY = eEX
 const TypeStockEX = computed(() => {
-    let TypeDestEX = DataWork.list.filter(function (index) {
+    if(DataWork.list != null){
+        let TypeDestEX = DataWork.list.filter(function (index) {
         if(index.Dest === 'STOCK'){
             return index.TypeListData === 'EX'
         }
     })
     return counstDestStockEX.value = TypeDestEX.length;
+    }
 
 })
 
 // Menghitung Jumlah Data Yang Tersimpann Di LocalStorage
 const CountNumber = computed(() => {
-  return DataWork.list.length;
+  if(DataWork.list != null){
+    return DataWork.list.length;
+  }
 })
 
 const Total = computed(() => { 
-  return DataWork.list.length;
+  if(DataWork.list != null){
+    return DataWork.list.length;
+  }
 })
 
 // Rumung Untuk Progress Bar Percentage
 const TotalOut = computed(() => {
-  jumlahBarang.value = DataWork.list.length;
-  let hasil = (jumlahBarang.value / percentage.value) * 100;
-  return hasil.toFixed(1);
+  if(DataWork.list != null){
+    jumlahBarang.value = DataWork.list.length;
+    let hasil = (jumlahBarang.value / percentage.value) * 100;
+    return hasil.toFixed(1);
+  }
   
 })
 
@@ -432,19 +451,35 @@ const DataWork = reactive({
 // Methods Insert Data LocalStorage
 const add = (index) => {
     getDate()
-    DataWork.list.unshift({
-      No: CountNumber.value + 1,
-      WorkNo: input.value,
-      Dest: index,
-      date: date.value,
-      Time: Time.value,
-      Shift: Shift.value,
-      TraceIn: TraceIn.value,
-      TraceMiddle: TraceMiddle.value,
-      simpan: simpan.value = true,
-      TypeListData: TypeListData = Type.value,
-      percentage: percentage.value - 1
-  })    
+    if(DataWork.list != null){
+        DataWork.list.unshift({
+            No: CountNumber.value + 1,
+            WorkNo: input.value,
+            Dest: index,
+            date: date.value,
+            Time: Time.value,
+            Shift: Shift.value,
+            TraceIn: TraceIn.value,
+            TraceMiddle: TraceMiddle.value,
+            simpan: simpan.value = true,
+            TypeListData: TypeListData = Type.value,
+            percentage: percentage.value - 1
+        })    
+    }else{
+        DataWork.list = [
+            {No: 1},
+            {WorkNo: input.value},
+            {Dest: index},
+            {date: date.value},
+            {Time: Time.value},
+            {Shift: Shift.value},
+            {TraceIn: TraceIn.value},
+            {TraceMiddle: TraceMiddle.value},
+            {simpah: simpan.value = true},
+            {TypeListData: TypeListData = Type.value},
+            {percentage: percentage.value -1 }
+        ]
+    }
   input.value = input.value.replace(/.$/,+9);
   console.log(input.value)
   if(simpan.value == true){
