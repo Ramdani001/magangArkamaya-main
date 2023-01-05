@@ -467,17 +467,19 @@ const add = (index) => {
         })    
     }else{
         DataWork.list = [
-            {No: 1},
-            {WorkNo: input.value},
-            {Dest: index},
-            {date: date.value},
-            {Time: Time.value},
-            {Shift: Shift.value},
-            {TraceIn: TraceIn.value},
-            {TraceMiddle: TraceMiddle.value},
-            {simpah: simpan.value = true},
-            {TypeListData: TypeListData = Type.value},
-            {percentage: percentage.value -1 }
+            {   
+                No: 1,
+                WorkNo: input.value,
+                Dest: index,
+                date: date.value,
+                Time: Time.value,
+                Shift: Shift.value,
+                TraceIn: TraceIn.value,
+                TraceMiddle: TraceMiddle.value,
+                simpan: simpan.value = true,
+                TypeListData: TypeListData = Type.value,
+                percentage: percentage.value -1 
+            },
         ]
     }
   input.value = input.value.replace(/.$/,+9);
