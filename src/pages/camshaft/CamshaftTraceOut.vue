@@ -83,7 +83,9 @@ const DataWork = reactive({
 })
 
 onMounted(() => {
-    DataWork.list = JSON.parse(localStorage.getItem("DataWork.list"));
+    if(DataWork.list != null ){
+        DataWork.list = JSON.parse(localStorage.getItem("DataWork.list"));
+    }
 })
 
 

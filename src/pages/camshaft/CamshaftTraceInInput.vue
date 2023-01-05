@@ -363,29 +363,41 @@ var data = 0;
           }else {
             DataGenap = JSON.parse(localStorage.getItem("DataGenap"));
             getDate()
-            DataWork.DataList.push({
-              No: No.value,
-              WorkNo: WorkNo.value,
-              PartCode: PartCode.value,
-              Type: Type.value,
-              Line: DataGenap[i].Line,
-              Date: date.value,
-              Time: Time.value,
-              Shift: shift
-            })
+              if(DataWork.DataList != null){
+                DataWork.DataList.push({
+                No: No.value,
+                WorkNo: WorkNo.value,
+                PartCode: PartCode.value,
+                Type: Type.value,
+                Line: DataGenap[i].Line,
+                Date: date.value,
+                Time: Time.value,
+                Shift: shift
+              })
+              
+            }else{
+              DataWork.DataList = [
+                {No: No.value},
+                {WorkNo: WorkNo.value},
+                {PartCode: PartCode.value},
+                {Type: Type.value},
+                {Line: DataGenap[i].Line},
+                {Date: date.value},
+                {Time: Time.value},
+                {Shift: shift}
+              ]
+            }
             localStorage.setItem("DataWork", JSON.stringify(DataWork.DataList));
-            console.log(PartCode.value);
-            DataGenap.forEach(element => {
-              if(Number(element.Increment) == indeksSekarangGenap){
-                  DataGenap[i].Line = DataGenap[i-1].Line;
-                  DataGenap[i].Shift = DataGenap[i-1].Shift;
-                  DataGenap[i].status = true;
-                  localStorage.setItem("DataGenap", JSON.stringify(DataGenap));
-                  WorkNo.value = element.Years + element.Line + element.Day + element.Month + element.Shift + element.Increment
-                }
-            })
-
-            
+              console.log(PartCode.value);
+              DataGenap.forEach(element => {
+                if(Number(element.Increment) == indeksSekarangGenap){
+                    DataGenap[i].Line = DataGenap[i-1].Line;
+                    DataGenap[i].Shift = DataGenap[i-1].Shift;
+                    DataGenap[i].status = true;
+                    localStorage.setItem("DataGenap", JSON.stringify(DataGenap));
+                    WorkNo.value = element.Years + element.Line + element.Day + element.Month + element.Shift + element.Increment
+                  }
+              })
           }
           alert("Data Tersimpan");
     } 

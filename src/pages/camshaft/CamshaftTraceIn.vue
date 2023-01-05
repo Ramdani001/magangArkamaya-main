@@ -74,7 +74,9 @@ const DataWork = reactive({
 });
 
 onMounted(() => {
-  DataWork.DataList = JSON.parse(localStorage.getItem("DataWork"));
+  if(DataWork.DataList != null){
+    DataWork.DataList = JSON.parse(localStorage.getItem("DataWork"));
+  }
 });
 
 const DataGenerate = reactive({
@@ -135,13 +137,17 @@ const filter = (index) => {
   }
 
 const TotalOut = computed(() => {
-  jumlahBarang.value = DataWork.DataList.length;
-  let hasil = (jumlahBarang.value / percentage.value) * 100;
-  return hasil.toFixed(1);
+  if(DataWork.DataList != null){
+    jumlahBarang.value = DataWork.DataList.length;
+    let hasil = (jumlahBarang.value / percentage.value) * 100;
+    return hasil.toFixed(1);
+  }
 })
 
 const Total = computed(() => {
-  return DataWork.DataList.length;
+  if(DataWork.DataList != null){
+    return DataWork.DataList.length;
+  }
 });
 
 
@@ -287,8 +293,11 @@ const Total = computed(() => {
               </div>
             </section>
           </div> 
-          <div id="table" class="w-11/12 md:w-full self-start">
+          <div v-if="DataWork.DataList != null" id="table" class="w-11/12 md:w-full self-start">
             <DataTable :DataWork="DataWork.DataList" />
+          </div>
+          <div v-else id="table" class="w-11/12 md:w-full self-start">
+            <DataTable />
           </div>
         </div>
       </div>
