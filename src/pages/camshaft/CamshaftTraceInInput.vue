@@ -378,14 +378,14 @@ var data = 0;
               
             }else{
               DataWork.DataList = [
-                {No: No.value},
-                {WorkNo: WorkNo.value},
-                {PartCode: PartCode.value},
-                {Type: Type.value},
-                {Line: DataGenap[i].Line},
-                {Date: date.value},
-                {Time: Time.value},
-                {Shift: shift}
+                {No: No.value,
+                WorkNo: WorkNo.value,
+                PartCode: PartCode.value,
+                Type: Type.value,
+                Line: DataGenap[i].Line,
+                Date: date.value,
+                Time: Time.value,
+                Shift: shift}
               ]
             }
             localStorage.setItem("DataWork", JSON.stringify(DataWork.DataList));

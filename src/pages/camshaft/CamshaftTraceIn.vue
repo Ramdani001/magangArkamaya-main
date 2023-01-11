@@ -76,6 +76,8 @@ const DataWork = reactive({
 onMounted(() => {
   if(DataWork.DataList != null){
     DataWork.DataList = JSON.parse(localStorage.getItem("DataWork"));
+  }else {
+    localStorage.setItem("DataWork");
   }
 });
 
@@ -119,7 +121,7 @@ const filter = (index) => {
         }
     }
   }
-  else if(index === 'Genap'){
+  else if(index === 'Genap'){ 
 
       console.log("Genap");
         if(DataGenap.listData.length == 0){
